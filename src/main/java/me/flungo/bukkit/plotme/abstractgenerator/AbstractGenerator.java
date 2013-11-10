@@ -9,6 +9,7 @@
 package me.flungo.bukkit.plotme.abstractgenerator;
 
 import java.io.File;
+import java.util.HashMap;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -78,5 +79,25 @@ public abstract class AbstractGenerator extends JavaPlugin {
             worlds = getConfig().createSection("worlds");
             ConfigurationSection plotworld = worlds.createSection("plotworld");
         }
+    }
+
+    public WorldGenConfig getWorldGenConfig(String world) {
+        return getWorldGenConfig(world, new HashMap<String, Object>());
+    }
+
+    public WorldGenConfig getWorldGenConfig(String world, HashMap<String, Object> defaults) {
+        ConfigurationSection worldsConfigurationSection;
+        if (getConfig().contains("worlds")) {
+            worldsConfigurationSection = getConfig().getConfigurationSection("worlds");
+        } else {
+            worldsConfigurationSection = getConfig().createSection("worlds");
+        }
+        ConfigurationSection worldConfigurationSection;
+        if (worldsConfigurationSection.contains(world)) {
+            worldConfigurationSection = worldsConfigurationSection.getConfigurationSection(world);
+        } else {
+            worldConfigurationSection = worldsConfigurationSection.createSection(world);
+        }
+        return new WorldGenConfig(worldConfigurationSection, defaults);
     }
 }
