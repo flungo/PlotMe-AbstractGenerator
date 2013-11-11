@@ -76,6 +76,7 @@ public abstract class AbstractGenerator extends JavaPlugin {
     }
 
     private void setupConfig() {
+        // Set the config accessor for the main config.yml
         configCA = new ConfigAccessor(this, "config.yml");
 
         // Set defaults for WorldGenConfig
@@ -88,14 +89,10 @@ public abstract class AbstractGenerator extends JavaPlugin {
 
         WorldGenConfig.putDefault("BaseHeight", 64);
 
+        // Set the config accessor for the main caption-english.yml
         captionsCA = new ConfigAccessor(this, "caption-english.yml");
-        captionsCA.saveDefaultConfig();
-
-        ConfigurationSection worlds;
-        if (!getConfig().contains("worlds")) {
-            worlds = getConfig().createSection("worlds");
-            ConfigurationSection plotworld = worlds.createSection("plotworld");
-        }
+        // Save default config into file.
+        captionsCA.saveConfig();
     }
 
     public WorldGenConfig getWorldGenConfig(String world) {
