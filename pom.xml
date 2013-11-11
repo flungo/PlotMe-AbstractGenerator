@@ -63,6 +63,10 @@
             <id>hawkfalcon-repo</id>
             <url>http://jenkins.hawkfalcon.com/plugin/repository/everything/</url>
         </repository>
+        <repository>
+            <id>flungo-repo</id>
+            <url>http://ci.flungo.me/plugin/repository/everything/</url>
+        </repository>
     </repositories>
 
     <dependencies>
