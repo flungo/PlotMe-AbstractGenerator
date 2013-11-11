@@ -102,6 +102,15 @@ public class WorldGenConfig implements ConfigurationSection {
         return BlockRepresentation.getBlockRepresentation(getString(string));
     }
 
+    public boolean isBlockRepresentation(String string) {
+        try {
+            getBlockRepresentation(string);
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public Set<String> getKeys(boolean bln) {
         return world.getKeys(bln);
