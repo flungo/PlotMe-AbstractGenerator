@@ -17,8 +17,9 @@ public enum AbstractWorldConfigPath implements WorldConfigPath {
     PLOT_SIZE("PlotSize", 16),
     X_TRANSLATION("XTranslation", 0),
     Z_TRANSLATION("ZTranslation", 0),
+    GROUND_LEVEL("GroundHeight", 64),
     BASE_BLOCK("BottomBlock", "7"),
-    GROUND_LEVEL("GroundHeight", 64);
+    FILL_BLOCK("FillBlock", "3");
 
     public final String path;
     public final Object def;
