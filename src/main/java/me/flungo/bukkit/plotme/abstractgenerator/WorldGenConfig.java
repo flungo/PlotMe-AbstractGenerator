@@ -99,7 +99,7 @@ public class WorldGenConfig implements ConfigurationSection {
     }
 
     public BlockRepresentation getBlockRepresentation(String string) {
-        return BlockRepresentation.getBlockRepresentation(getString(string));
+        return new BlockRepresentation(getString(string));
     }
 
     public boolean isBlockRepresentation(String string) {

@@ -14,7 +14,7 @@ public class BlockInfo {
     }
 
     public BlockInfo(Block block) {
-        this(BlockRepresentation.getBlockRepresentation(block), block.getLocation());
+        this(new BlockRepresentation(block), block.getLocation());
     }
 
 }

@@ -24,12 +24,12 @@ public class BlockRepresentation {
         this.data = value;
     }
 
-    public static BlockRepresentation getBlockRepresentation(String idvalue) {
-        return new BlockRepresentation(getBlockId(idvalue), getBlockData(idvalue));
+    public BlockRepresentation(String idvalue) {
+        this(getBlockId(idvalue), getBlockData(idvalue));
     }
 
-    public static BlockRepresentation getBlockRepresentation(Block block) {
-        return new BlockRepresentation((short) block.getTypeId(), block.getData());
+    public BlockRepresentation(Block block) {
+        this((short) block.getTypeId(), block.getData());
     }
 
     public static short getBlockId(String idvalue) throws NumberFormatException {
