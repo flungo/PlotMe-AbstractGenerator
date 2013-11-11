@@ -63,6 +63,9 @@ public class WorldGenConfig implements ConfigurationSection {
     }
 
     public static Object putDefault(String key, Object value) {
+        if (value instanceof BlockRepresentation) {
+            value = ((BlockRepresentation) value).getBlockIdValue();
+        }
         return DEFAULTS.put(key, value);
     }
 
