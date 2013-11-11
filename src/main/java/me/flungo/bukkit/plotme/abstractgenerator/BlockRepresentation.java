@@ -61,7 +61,11 @@ public class BlockRepresentation {
     }
 
     public boolean setBlock(Block b) {
-        return b.setTypeIdAndData(getId(), getData(), true);
+        return setBlock(b, true);
+    }
+
+    public boolean setBlock(Block b, boolean applyPhysics) {
+        return b.setTypeIdAndData(getId(), getData(), applyPhysics);
     }
 
 }
