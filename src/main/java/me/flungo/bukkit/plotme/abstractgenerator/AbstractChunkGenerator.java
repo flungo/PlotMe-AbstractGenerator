@@ -11,6 +11,9 @@ package me.flungo.bukkit.plotme.abstractgenerator;
 import com.worldcretornica.plotme_core.api.v0_14b.IPlotMe_ChunkGenerator;
 import com.worldcretornica.plotme_core.api.v0_14b.IPlotMe_GeneratorManager;
 import java.util.Random;
+import static me.flungo.bukkit.plotme.abstractgenerator.AbstractWorldConfigPath.GROUND_LEVEL;
+import static me.flungo.bukkit.plotme.abstractgenerator.AbstractWorldConfigPath.X_TRANSLATION;
+import static me.flungo.bukkit.plotme.abstractgenerator.AbstractWorldConfigPath.Z_TRANSLATION;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.generator.ChunkGenerator;
@@ -31,7 +34,7 @@ public abstract class AbstractChunkGenerator extends ChunkGenerator implements I
 
     @Override
     public Location getFixedSpawnLocation(World world, Random random) {
-        return new Location(world, wgc.getInt("XTranslation"), wgc.getInt("RoadHeight") + 2, wgc.getInt("ZTranslation"));
+        return new Location(world, wgc.getInt(X_TRANSLATION), wgc.getInt(GROUND_LEVEL) + 2, wgc.getInt(Z_TRANSLATION));
     }
 
     @Override

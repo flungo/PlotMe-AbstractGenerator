@@ -87,7 +87,7 @@ public abstract class AbstractGenerator extends JavaPlugin {
 
         // Set defaults for WorldGenConfig
         for (AbstractWorldConfigPath configPath : AbstractWorldConfigPath.values()) {
-            WorldGenConfig.putDefault(configPath.path, configPath.def);
+            WorldGenConfig.putDefault(configPath);
         }
 
         // Set the config accessor for the main caption-english.yml

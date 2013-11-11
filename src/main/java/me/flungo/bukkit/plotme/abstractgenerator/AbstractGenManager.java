@@ -15,6 +15,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import static me.flungo.bukkit.plotme.abstractgenerator.AbstractWorldConfigPath.GROUND_LEVEL;
+import static me.flungo.bukkit.plotme.abstractgenerator.AbstractWorldConfigPath.PLOT_SIZE;
 import org.bukkit.Art;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -126,7 +128,7 @@ public abstract class AbstractGenManager implements IPlotMe_GeneratorManager {
 
     @Override
     public int getPlotSize(String worldname) {
-        return getWGC(worldname).getInt("PlotSize");
+        return getWGC(worldname).getInt(PLOT_SIZE);
     }
 
     @Override
@@ -144,7 +146,7 @@ public abstract class AbstractGenManager implements IPlotMe_GeneratorManager {
 
     @Override
     public int getRoadHeight(String worldname) {
-        return getWGC(worldname).getInt("RoadHeight");
+        return getWGC(worldname).getInt(GROUND_LEVEL);
     }
 
     @Override
