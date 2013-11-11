@@ -8,6 +8,8 @@
  */
 package me.flungo.bukkit.plotme.abstractgenerator;
 
+import org.bukkit.block.Block;
+
 /**
  *
  * @author Fabrizio Lungo <fab@lungo.co.uk>
@@ -52,6 +54,10 @@ public class BlockRepresentation {
 
     public String getBlockIdValue() {
         return (data == 0) ? id.toString() : id.toString() + ":" + data.toString();
+    }
+
+    public boolean setBlock(Block b) {
+        return b.setTypeIdAndData(getId(), getData(), true);
     }
 
 }
