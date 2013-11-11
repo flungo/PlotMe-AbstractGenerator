@@ -25,6 +25,11 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public abstract class AbstractGenerator extends JavaPlugin {
 
+    public static final String CORE_PLUGIN_NAME = "PlotMe";
+    public static final String DEFAULT_CONFIG_NAME = "config.yml";
+    public static final String DEFAULT_CAPTIONS_FILE = "caption-english.yml";
+    public static final String WORLDS_CONFIG_SECTION = "worlds";
+
     private File configFolder;
 
     private ConfigAccessor configCA;
@@ -51,7 +56,7 @@ public abstract class AbstractGenerator extends JavaPlugin {
 
     private void setupConfigFolder() {
         File pluginsFolder = getDataFolder().getParentFile();
-        File plotMeFolder = new File(pluginsFolder, "PlotMe");
+        File plotMeFolder = new File(pluginsFolder, CORE_PLUGIN_NAME);
         this.configFolder = new File(plotMeFolder, getName());
         this.configFolder.mkdirs();
     }
@@ -82,20 +87,20 @@ public abstract class AbstractGenerator extends JavaPlugin {
 
     private void setupConfig() {
         // Set the config accessor for the main config.yml
-        configCA = new ConfigAccessor(this, "config.yml");
+        configCA = new ConfigAccessor(this, DEFAULT_CONFIG_NAME);
 
         // Set defaults for WorldGenConfig
-        WorldGenConfig.putDefault(PLOT_SIZE.toString(), 32);
+        WorldGenConfig.putDefault(PLOT_SIZE.path(), 32);
 
-        WorldGenConfig.putDefault(X_TRANSLATION.toString(), 0);
-        WorldGenConfig.putDefault(Z_TRANSLATION.toString(), 0);
+        WorldGenConfig.putDefault(X_TRANSLATION.path(), 0);
+        WorldGenConfig.putDefault(Z_TRANSLATION.path(), 0);
 
-        WorldGenConfig.putDefault(BASE_BLOCK.toString(), "7");
+        WorldGenConfig.putDefault(BASE_BLOCK.path(), "7");
 
-        WorldGenConfig.putDefault(GROUND_LEVEL.toString(), 64);
+        WorldGenConfig.putDefault(GROUND_LEVEL.path(), 64);
 
         // Set the config accessor for the main caption-english.yml
-        captionsCA = new ConfigAccessor(this, "caption-english.yml");
+        captionsCA = new ConfigAccessor(this, DEFAULT_CAPTIONS_FILE);
         // Save default config into file.
         captionsCA.saveConfig();
     }
@@ -106,10 +111,10 @@ public abstract class AbstractGenerator extends JavaPlugin {
 
     public WorldGenConfig getWorldGenConfig(String world, HashMap<String, Object> defaults) {
         ConfigurationSection worldsConfigurationSection;
-        if (getConfig().contains("worlds")) {
-            worldsConfigurationSection = getConfig().getConfigurationSection("worlds");
+        if (getConfig().contains(WORLDS_CONFIG_SECTION)) {
+            worldsConfigurationSection = getConfig().getConfigurationSection(WORLDS_CONFIG_SECTION);
         } else {
-            worldsConfigurationSection = getConfig().createSection("worlds");
+            worldsConfigurationSection = getConfig().createSection(WORLDS_CONFIG_SECTION);
         }
         ConfigurationSection worldConfigurationSection;
         if (worldsConfigurationSection.contains(world)) {
