@@ -26,17 +26,23 @@ public abstract class AbstractGenerator extends JavaPlugin {
     protected ConfigAccessor captionsCA;
 
     @Override
-    public void onEnable() {
+    public final void onEnable() {
         setupConfigFolder();
         setupConfig();
+        initialize();
     }
 
+    public abstract void initialize();
+
     @Override
-    public void onDisable() {
+    public final void onDisable() {
         configFolder = null;
         configCA = null;
         captionsCA = null;
+        takedown();
     }
+
+    public abstract void takedown();
 
     private void setupConfigFolder() {
         File pluginsFolder = getDataFolder().getParentFile();
