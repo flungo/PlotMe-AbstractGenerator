@@ -77,6 +77,17 @@ public abstract class AbstractGenerator extends JavaPlugin {
 
     private void setupConfig() {
         configCA = new ConfigAccessor(this, "config.yml");
+
+        // Set defaults for WorldGenConfig
+        WorldGenConfig.putDefault("PlotSize", 32);
+
+        WorldGenConfig.putDefault("XTranslation", 0);
+        WorldGenConfig.putDefault("ZTranslation", 0);
+
+        WorldGenConfig.putDefault("BottomBlock", "7");
+
+        WorldGenConfig.putDefault("BaseHeight", 64);
+
         captionsCA = new ConfigAccessor(this, "caption-english.yml");
         captionsCA.saveDefaultConfig();
 
