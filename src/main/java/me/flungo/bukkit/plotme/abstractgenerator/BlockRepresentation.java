@@ -26,7 +26,7 @@ public class BlockRepresentation {
         return new BlockRepresentation(getBlockId(idvalue), getBlockValue(idvalue));
     }
 
-    public static short getBlockId(String idvalue) {
+    public static short getBlockId(String idvalue) throws NumberFormatException {
         if (idvalue.indexOf(":") > 0) {
             return Short.parseShort(idvalue.split(":")[0]);
         } else {
@@ -34,7 +34,7 @@ public class BlockRepresentation {
         }
     }
 
-    public static byte getBlockValue(String idvalue) {
+    public static byte getBlockValue(String idvalue) throws NumberFormatException {
         if (idvalue.indexOf(":") > 0) {
             return Byte.parseByte(idvalue.split(":")[1]);
         } else {
