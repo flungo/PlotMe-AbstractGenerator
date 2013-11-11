@@ -90,14 +90,14 @@ public abstract class AbstractGenerator extends JavaPlugin {
         configCA = new ConfigAccessor(this, DEFAULT_CONFIG_NAME);
 
         // Set defaults for WorldGenConfig
-        WorldGenConfig.putDefault(PLOT_SIZE.path(), 32);
+        WorldGenConfig.putDefault(PLOT_SIZE.path, PLOT_SIZE.def);
 
-        WorldGenConfig.putDefault(X_TRANSLATION.path(), 0);
-        WorldGenConfig.putDefault(Z_TRANSLATION.path(), 0);
+        WorldGenConfig.putDefault(X_TRANSLATION.path, X_TRANSLATION.def);
+        WorldGenConfig.putDefault(Z_TRANSLATION.path, Z_TRANSLATION.def);
 
-        WorldGenConfig.putDefault(BASE_BLOCK.path(), "7");
+        WorldGenConfig.putDefault(BASE_BLOCK.path, BASE_BLOCK.def);
 
-        WorldGenConfig.putDefault(GROUND_LEVEL.path(), 64);
+        WorldGenConfig.putDefault(GROUND_LEVEL.path, GROUND_LEVEL.def);
 
         // Set the config accessor for the main caption-english.yml
         captionsCA = new ConfigAccessor(this, DEFAULT_CAPTIONS_FILE);

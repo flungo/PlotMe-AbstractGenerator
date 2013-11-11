@@ -14,25 +14,23 @@ package me.flungo.bukkit.plotme.abstractgenerator;
  */
 public enum AbstractWorldConfigPaths {
 
-    PLOT_SIZE("PlotSize"),
-    X_TRANSLATION("XTranslation"),
-    Z_TRANSLATION("ZTranslation"),
-    BASE_BLOCK("BottomBlock"),
-    GROUND_LEVEL("GroundHeight");
+    PLOT_SIZE("PlotSize", 16),
+    X_TRANSLATION("XTranslation", 0),
+    Z_TRANSLATION("ZTranslation", 0),
+    BASE_BLOCK("BottomBlock", "7"),
+    GROUND_LEVEL("GroundHeight", 64);
 
-    private final String path;
+    public final String path;
+    public final Object def;
 
-    private AbstractWorldConfigPaths(String path) {
+    private AbstractWorldConfigPaths(String path, Object def) {
         this.path = path;
-    }
-
-    public String path() {
-        return path;
+        this.def = def;
     }
 
     @Override
     public String toString() {
-        return path();
+        return path;
     }
 
 }
