@@ -11,6 +11,7 @@
     <url>http://maven.apache.org</url>
 
     <build>
+        <defaultGoal>clean package install</defaultGoal>
         <finalName>PlotMe-AbstractGenerator</finalName>
         <plugins>
             <plugin>
