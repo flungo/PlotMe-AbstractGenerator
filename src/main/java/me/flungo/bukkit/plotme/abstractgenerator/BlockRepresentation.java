@@ -28,6 +28,10 @@ public class BlockRepresentation {
         return new BlockRepresentation(getBlockId(idvalue), getBlockData(idvalue));
     }
 
+    public static BlockRepresentation getBlockRepresentation(Block block) {
+        return new BlockRepresentation((short) block.getTypeId(), block.getData());
+    }
+
     public static short getBlockId(String idvalue) throws NumberFormatException {
         if (idvalue.indexOf(":") > 0) {
             return Short.parseShort(idvalue.split(":")[0]);
