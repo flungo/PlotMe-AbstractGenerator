@@ -85,7 +85,7 @@ public abstract class AbstractGenerator extends JavaPlugin {
         configCA = new ConfigAccessor(this, DEFAULT_CONFIG_NAME);
 
         // Set defaults for WorldGenConfig
-        for (AbstractWorldConfigPaths configPath : AbstractWorldConfigPaths.values()) {
+        for (AbstractWorldConfigPath configPath : AbstractWorldConfigPath.values()) {
             WorldGenConfig.putDefault(configPath.path, configPath.def);
         }
 

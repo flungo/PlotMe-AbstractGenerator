@@ -12,7 +12,7 @@ package me.flungo.bukkit.plotme.abstractgenerator;
  *
  * @author Fabrizio Lungo <fab@lungo.co.uk>
  */
-public enum AbstractWorldConfigPaths {
+public enum AbstractWorldConfigPath {
 
     PLOT_SIZE("PlotSize", 16),
     X_TRANSLATION("XTranslation", 0),
@@ -23,7 +23,7 @@ public enum AbstractWorldConfigPaths {
     public final String path;
     public final Object def;
 
-    private AbstractWorldConfigPaths(String path, Object def) {
+    private AbstractWorldConfigPath(String path, Object def) {
         this.path = path;
         this.def = def;
     }
