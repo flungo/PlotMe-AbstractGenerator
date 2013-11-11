@@ -15,15 +15,15 @@ package me.flungo.bukkit.plotme.abstractgenerator;
 public class BlockRepresentation {
 
     private final Short id;
-    private final Byte value;
+    private final Byte data;
 
     public BlockRepresentation(short id, byte value) {
         this.id = id;
-        this.value = value;
+        this.data = value;
     }
 
     public static BlockRepresentation getBlockRepresentation(String idvalue) {
-        return new BlockRepresentation(getBlockId(idvalue), getBlockValue(idvalue));
+        return new BlockRepresentation(getBlockId(idvalue), getBlockData(idvalue));
     }
 
     public static short getBlockId(String idvalue) throws NumberFormatException {
@@ -34,7 +34,7 @@ public class BlockRepresentation {
         }
     }
 
-    public static byte getBlockValue(String idvalue) throws NumberFormatException {
+    public static byte getBlockData(String idvalue) throws NumberFormatException {
         if (idvalue.indexOf(":") > 0) {
             return Byte.parseByte(idvalue.split(":")[1]);
         } else {
@@ -46,12 +46,12 @@ public class BlockRepresentation {
         return id;
     }
 
-    public Byte getValue() {
-        return value;
+    public Byte getData() {
+        return data;
     }
 
     public String getBlockIdValue() {
-        return (value == 0) ? id.toString() : id.toString() + ":" + value.toString();
+        return (data == 0) ? id.toString() : id.toString() + ":" + data.toString();
     }
 
 }
