@@ -10,6 +10,11 @@ package me.flungo.bukkit.plotme.abstractgenerator;
 
 import java.io.File;
 import java.util.HashMap;
+import static me.flungo.bukkit.plotme.abstractgenerator.AbstractWorldConfigPaths.BASE_BLOCK;
+import static me.flungo.bukkit.plotme.abstractgenerator.AbstractWorldConfigPaths.GROUND_LEVEL;
+import static me.flungo.bukkit.plotme.abstractgenerator.AbstractWorldConfigPaths.PLOT_SIZE;
+import static me.flungo.bukkit.plotme.abstractgenerator.AbstractWorldConfigPaths.X_TRANSLATION;
+import static me.flungo.bukkit.plotme.abstractgenerator.AbstractWorldConfigPaths.Z_TRANSLATION;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -80,14 +85,14 @@ public abstract class AbstractGenerator extends JavaPlugin {
         configCA = new ConfigAccessor(this, "config.yml");
 
         // Set defaults for WorldGenConfig
-        WorldGenConfig.putDefault("PlotSize", 32);
+        WorldGenConfig.putDefault(PLOT_SIZE.toString(), 32);
 
-        WorldGenConfig.putDefault("XTranslation", 0);
-        WorldGenConfig.putDefault("ZTranslation", 0);
+        WorldGenConfig.putDefault(X_TRANSLATION.toString(), 0);
+        WorldGenConfig.putDefault(Z_TRANSLATION.toString(), 0);
 
-        WorldGenConfig.putDefault("BottomBlock", "7");
+        WorldGenConfig.putDefault(BASE_BLOCK.toString(), "7");
 
-        WorldGenConfig.putDefault("BaseHeight", 64);
+        WorldGenConfig.putDefault(GROUND_LEVEL.toString(), 64);
 
         // Set the config accessor for the main caption-english.yml
         captionsCA = new ConfigAccessor(this, "caption-english.yml");
