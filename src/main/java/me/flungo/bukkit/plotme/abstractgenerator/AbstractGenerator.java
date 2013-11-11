@@ -8,6 +8,7 @@
  */
 package me.flungo.bukkit.plotme.abstractgenerator;
 
+import com.worldcretornica.plotme_core.api.v0_14b.IPlotMe_GeneratorManager;
 import java.io.File;
 import java.util.HashMap;
 import org.bukkit.configuration.ConfigurationSection;
@@ -114,4 +115,6 @@ public abstract class AbstractGenerator extends JavaPlugin {
         }
         return new WorldGenConfig(worldConfigurationSection, defaults);
     }
+
+    public abstract IPlotMe_GeneratorManager getGeneratorManager();
 }
