@@ -24,7 +24,7 @@ import org.bukkit.util.Vector;
  *
  * @author Fabrizio Lungo <fab@lungo.co.uk>
  */
-public class WorldGenConfig implements ConfigurationSection {
+public final class WorldGenConfig implements ConfigurationSection {
 
     private static HashMap<String, Object> DEFAULTS = new HashMap<String, Object>();
 
