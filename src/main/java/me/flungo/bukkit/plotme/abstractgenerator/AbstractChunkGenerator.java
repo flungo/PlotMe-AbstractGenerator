@@ -42,4 +42,11 @@ public abstract class AbstractChunkGenerator extends ChunkGenerator implements I
         return plugin.getGeneratorManager();
     }
 
+    protected void setBlock(short[][] result, int x, int y, int z, short blockkid) {
+        if (result[y >> 4] == null) {
+            result[y >> 4] = new short[4096];
+        }
+        result[y >> 4][((y & 0xF) << 8) | (z << 4) | x] = blockkid;
+    }
+
 }
