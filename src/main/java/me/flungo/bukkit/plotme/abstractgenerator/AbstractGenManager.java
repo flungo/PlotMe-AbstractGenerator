@@ -133,7 +133,12 @@ public abstract class AbstractGenManager implements IPlotMe_GeneratorManager {
 
     @Override
     public boolean createConfig(String worldname, Map<String, String> args, CommandSender cs) {
-        plugin.getWorldGenConfig(worldname);
+        WorldGenConfig wgc = plugin.getWorldGenConfig(worldname);
+
+        for (String key : args.keySet()) {
+            wgc.set(key, args.get(key));
+        }
+
         return true;
     }
 
