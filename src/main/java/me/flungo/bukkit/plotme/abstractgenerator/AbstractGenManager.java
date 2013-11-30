@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 import static me.flungo.bukkit.plotme.abstractgenerator.AbstractWorldConfigPath.GROUND_LEVEL;
 import static me.flungo.bukkit.plotme.abstractgenerator.AbstractWorldConfigPath.PLOT_SIZE;
 import org.bukkit.Art;
@@ -128,7 +129,12 @@ public abstract class AbstractGenManager implements IPlotMe_GeneratorManager {
 
     @Override
     public int getPlotSize(String worldname) {
-        return getWGC(worldname).getInt(PLOT_SIZE);
+        if (containsWGC(worldname)) {
+            return getWGC(worldname).getInt(PLOT_SIZE);
+        } else {
+            plugin.getLogger().log(Level.WARNING, "Tried to get plot size for undefined world '{0}'", worldname);
+            return 0;
+        }
     }
 
     @Override
@@ -151,7 +157,12 @@ public abstract class AbstractGenManager implements IPlotMe_GeneratorManager {
 
     @Override
     public int getRoadHeight(String worldname) {
-        return getWGC(worldname).getInt(GROUND_LEVEL);
+        if (containsWGC(worldname)) {
+            return getWGC(worldname).getInt(GROUND_LEVEL);
+        } else {
+            plugin.getLogger().log(Level.WARNING, "Tried to get road height for undefined world '{0}'", worldname);
+            return 64;
+        }
     }
 
     @Override
