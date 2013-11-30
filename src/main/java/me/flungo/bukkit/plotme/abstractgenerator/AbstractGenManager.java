@@ -112,7 +112,7 @@ public abstract class AbstractGenManager implements IPlotMe_GeneratorManager {
     }
 
     public WorldGenConfig putWGC(String worldname, WorldGenConfig wgc) {
-        return worldConfigs.put(worldname, wgc);
+        return worldConfigs.put(worldname.toLowerCase(), wgc);
     }
 
     public boolean containsWGC(World world) {
@@ -120,7 +120,7 @@ public abstract class AbstractGenManager implements IPlotMe_GeneratorManager {
     }
 
     public boolean containsWGC(String worldname) {
-        return worldConfigs.containsKey(worldname);
+        return worldConfigs.containsKey(worldname.toLowerCase());
     }
 
     public Set<String> worldSet() {
