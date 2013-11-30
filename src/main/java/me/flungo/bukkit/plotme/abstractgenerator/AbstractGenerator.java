@@ -173,11 +173,11 @@ public abstract class AbstractGenerator extends JavaPlugin {
         captionsCA.saveConfig();
     }
 
-    public WorldGenConfig getWorldGenConfig(String world) {
+    protected WorldGenConfig getWorldGenConfig(String world) {
         return getWorldGenConfig(world, new HashMap<String, Object>());
     }
 
-    public WorldGenConfig getWorldGenConfig(String world, HashMap<String, Object> defaults) {
+    protected WorldGenConfig getWorldGenConfig(String world, HashMap<String, Object> defaults) {
         ConfigurationSection worldsConfigurationSection;
         if (getConfig().contains(WORLDS_CONFIG_SECTION)) {
             worldsConfigurationSection = getConfig().getConfigurationSection(WORLDS_CONFIG_SECTION);
