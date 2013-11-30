@@ -24,16 +24,17 @@ import org.bukkit.generator.ChunkGenerator;
  */
 public abstract class AbstractChunkGenerator extends ChunkGenerator implements IPlotMe_ChunkGenerator {
 
-    private final WorldGenConfig wgc;
+    private final String worldname;
     private final AbstractGenerator plugin;
 
-    public AbstractChunkGenerator(AbstractGenerator instance, WorldGenConfig wgc) {
+    public AbstractChunkGenerator(AbstractGenerator instance, String worldname) {
         plugin = instance;
-        this.wgc = wgc;
+        this.worldname = worldname;
     }
 
     @Override
     public Location getFixedSpawnLocation(World world, Random random) {
+        WorldGenConfig wgc = plugin.getGeneratorManager().getWGC(worldname);
         return new Location(world, wgc.getInt(X_TRANSLATION), wgc.getInt(GROUND_LEVEL) + 2, wgc.getInt(Z_TRANSLATION));
     }
 
