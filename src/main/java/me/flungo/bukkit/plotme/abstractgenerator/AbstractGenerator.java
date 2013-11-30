@@ -50,6 +50,9 @@ public abstract class AbstractGenerator extends JavaPlugin {
         initialize();
     }
 
+    /**
+     * Called when this plugin is enabled.
+     */
     public abstract void initialize();
 
     @Override
@@ -60,6 +63,9 @@ public abstract class AbstractGenerator extends JavaPlugin {
         takedown();
     }
 
+    /**
+     * Called when this plugin is disabled.
+     */
     public abstract void takedown();
 
     private void setupConfigFolders() {
@@ -70,14 +76,30 @@ public abstract class AbstractGenerator extends JavaPlugin {
         configFolder.mkdirs();
     }
 
+    /**
+     * Returns the folder that the core PlotMe plugin's data files are located
+     * in.
+     *
+     * @return The folder that the core PlotMe plugin's data files are located
+     * in
+     */
     public File getCoreFolder() {
         return coreFolder;
     }
 
+    /**
+     * Discards any data in {@link #getCoreConfig()} and reloads from disk.
+     */
     public void reloadCoreConfig() {
         coreConfig = YamlConfiguration.loadConfiguration(coreConfigFile);
     }
 
+    /**
+     * Gets a <code>FileConfiguration</code> for the PlotMe core plugin, read
+     * from "config.yml" in the PlotMe core data folder.
+     *
+     * @return PlotMe Core configuration
+     */
     public FileConfiguration getCoreConfig() {
         if (coreConfig == null) {
             reloadCoreConfig();
@@ -85,6 +107,10 @@ public abstract class AbstractGenerator extends JavaPlugin {
         return coreConfig;
     }
 
+    /**
+     * Saves the <code>FileConfiguration</code> retrievable by
+     * {@link #getCoreConfig()}.
+     */
     public void saveCoreConfig() {
         if (coreConfig == null || coreConfigFile == null) {
             return;
@@ -100,18 +126,42 @@ public abstract class AbstractGenerator extends JavaPlugin {
         return new File(coreFolder, String.format(CORE_CAPTIONS_PATTERN, lang));
     }
 
+    /**
+     * Discards any data in {@link #getCoreCaptions()} and reloads from disk.
+     * <p>
+     * Reloads the default PlotMe plugin language.
+     */
     public void reloadCoreCaptions() {
         reloadCoreCaptions(getCoreConfig().getString(CORE_LANG_PATH, CORE_DEFAULT_LANG));
     }
 
+    /**
+     * Discards any data in {@link #getCoreCaptions(String lang)} and reloads
+     * from disk.
+     *
+     * @param lang The language to reload
+     */
     public void reloadCoreCaptions(String lang) {
         coreCaptions.put(lang, YamlConfiguration.loadConfiguration(getCoreCaptionsFile(lang)));
     }
 
+    /**
+     * Gets a <code>FileConfiguration</code> for the core PlotMe plugin's
+     * caption file for the default language.
+     *
+     * @return PlotMe Core captions configuration
+     */
     public FileConfiguration getCoreCaptions() {
         return getCoreCaptions(getCoreConfig().getString(CORE_LANG_PATH, CORE_DEFAULT_LANG));
     }
 
+    /**
+     * Gets a <code>FileConfiguration</code> for the core PlotMe plugin's
+     * caption file for the specified language.
+     *
+     * @param lang The language to get the captions for
+     * @return PlotMe Core captions configuration
+     */
     public FileConfiguration getCoreCaptions(String lang) {
         if (!coreCaptions.containsKey(lang)) {
             reloadCoreConfig();
@@ -119,10 +169,20 @@ public abstract class AbstractGenerator extends JavaPlugin {
         return coreCaptions.get(lang);
     }
 
+    /**
+     * Saves the <code>FileConfiguration</code> retrievable by
+     * {@link #getCoreCaptions()}.
+     */
     public void saveCoreCaptions() {
         saveCoreCaptions(getCoreConfig().getString(CORE_LANG_PATH, CORE_DEFAULT_LANG));
     }
 
+    /**
+     * Saves the <code>FileConfiguration</code> retrievable by
+     * {@link #getCoreCaptions(java.lang.String) }.
+     *
+     * @param lang The language to save the captions for
+     */
     public void saveCoreCaptions(String lang) {
         if (!coreCaptions.containsKey(lang)) {
             return;
@@ -134,30 +194,60 @@ public abstract class AbstractGenerator extends JavaPlugin {
         }
     }
 
+    /**
+     * Returns the folder that the plugin data's files are located in. The
+     * folder may not yet exist.
+     *
+     * @return The folder
+     */
     public File getConfigFolder() {
         return configFolder;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void reloadConfig() {
         configCA.reloadConfig();
     }
 
+    /**
+     * Gets a {@link FileConfiguration} for this plugin, read through
+     * "config.yml"
+     * <p>
+     * If there is a default config.yml embedded in this plugin, it will be
+     * provided as a default for this Configuration.
+     *
+     * @return Plugin configuration
+     */
     @Override
     public FileConfiguration getConfig() {
         return configCA.getConfig();
     }
 
+    /**
+     * Saves the {@link FileConfiguration} retrievable by {@link #getConfig()}.
+     */
     @Override
     public void saveConfig() {
-        configCA.saveConfig(); //To change body of generated methods, choose Tools | Templates.
+        configCA.saveConfig();
     }
 
+    /**
+     * Saves the raw contents of the default config.yml file to the location
+     * retrievable by {@link #getConfig()}. If there is no default config.yml
+     * embedded in the plugin, an empty config.yml file is saved. This should
+     * fail silently if the config.yml already exists.
+     */
     @Override
     public void saveDefaultConfig() {
-        configCA.saveDefaultConfig(); //To change body of generated methods, choose Tools | Templates.
+        configCA.saveDefaultConfig();
     }
 
+    /**
+     * Discards any data in {@link #getConfig()} and reloads from disk.
+     */
     private void setupConfig() {
         // Set the config accessor for the main config.yml
         configCA = new ConfigAccessor(this, DEFAULT_CONFIG_NAME);
@@ -173,10 +263,28 @@ public abstract class AbstractGenerator extends JavaPlugin {
         captionsCA.saveConfig();
     }
 
+    /**
+     * Gets a {@link WorldGenConfig} for the specified world with just the
+     * global defaults for {@link WorldGenConfig}.
+     *
+     * @param world The world to get the {@link WorldGenConfig} for
+     * @return The {@link WorldGenConfig}
+     * @see #getWorldGenConfig(java.lang.String, java.util.HashMap)
+     */
     protected WorldGenConfig getWorldGenConfig(String world) {
         return getWorldGenConfig(world, new HashMap<String, Object>());
     }
 
+    /**
+     * Gets a {@link WorldGenConfig} for the specified world with default set as
+     * specified in the HashMap which maps config paths to default values to be
+     * added to or override the global defaults for {@link WorldGenConfig}.
+     *
+     * @param world The world to get the {@link WorldGenConfig} for
+     * @param defaults A map of paths to their default values to be populated
+     * for the WorldGenConfig
+     * @return The {@link WorldGenConfig}
+     */
     protected WorldGenConfig getWorldGenConfig(String world, HashMap<String, Object> defaults) {
         ConfigurationSection worldsConfigurationSection;
         if (getConfig().contains(WORLDS_CONFIG_SECTION)) {
