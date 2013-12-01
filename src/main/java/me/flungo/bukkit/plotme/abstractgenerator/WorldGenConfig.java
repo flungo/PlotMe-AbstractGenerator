@@ -21,6 +21,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 /**
+ * Represents the generation configuration for a single world.
  *
  * @author Fabrizio Lungo <fab@lungo.co.uk>
  */
@@ -31,10 +32,26 @@ public final class WorldGenConfig implements ConfigurationSection {
     private final ConfigurationSection world;
     private final HashMap<String, Object> defaults;
 
+    /**
+     * Creates a {@link WorldGenConfig} by wrapping a
+     * <tt>ConfigurationSection</tt> that represents the generation
+     * configuration for that world.
+     *
+     * @param world the <tt>ConfigurationSection</tt>
+     */
     public WorldGenConfig(ConfigurationSection world) {
         this(world, new HashMap<String, Object>());
     }
 
+    /**
+     * Creates a {@link WorldGenConfig} by wrapping a
+     * <tt>ConfigurationSection</tt> that represents the generation
+     * configuration for that world and adding the default values specified in
+     * the Map of paths to default values.
+     *
+     * @param world the <tt>ConfigurationSection</tt>
+     * @param defaults a {@link Map} of default paths to default values
+     */
     public WorldGenConfig(ConfigurationSection world, HashMap<String, Object> defaults) {
         this.world = world;
         this.defaults = DEFAULTS;
@@ -46,74 +63,219 @@ public final class WorldGenConfig implements ConfigurationSection {
         }
     }
 
+    /**
+     * Returns the number of items specified in the global default mapping for
+     * {@link WorldGenConfig}s.
+     *
+     * @return The number of default values
+     * @see Map#size()
+     */
     public static int defaultSize() {
         return DEFAULTS.size();
     }
 
+    /**
+     * Returns <tt>true</tt> if there are no default mappings for
+     * {@link WorldGenConfig}s.
+     *
+     * @return <tt>true</tt> if there are no default mappings for
+     * {@link WorldGenConfig}s.
+     * @see Map#isEmpty()
+     */
     public static boolean isDefaultEmpty() {
         return DEFAULTS.isEmpty();
     }
 
-    public static Object getDefault(String key) {
-        return DEFAULTS.get(key);
+    /**
+     * Returns the default value to which the specified path is mapped, or
+     * {@code null} if there is no default for the path.
+     *
+     * @param path the path whose default value is to be returned
+     * @return the default value to which the specified path is mapped
+     * @see Map#get(java.lang.Object)
+     */
+    public static Object getDefault(String path) {
+        return DEFAULTS.get(path);
     }
 
+    /**
+     * Returns the default value to which the specified path is mapped, or
+     * {@code null} if there is no default for the path.
+     *
+     * @param wcp the {@link WorldConfigPath} whose default value is to be
+     * returned
+     * @return the default value to which the specified path is mapped
+     * @see #getDefault(java.lang.String)
+     */
     public static Object getDefault(WorldConfigPath wcp) {
         return getDefault(wcp.path());
     }
 
-    public static boolean defaultContainsKey(String key) {
-        return DEFAULTS.containsKey(key);
+    /**
+     * Returns <tt>true</tt> if there is a default default for the specified
+     * <tt>path</tt>.
+     *
+     * @param path The path whose presence in the {@link WorldGenConfig}
+     * defaults is to be tested
+     * @return <tt>true</tt> if this map contains a mapping for the specified
+     * path.
+     * @see Map#containsKey(java.lang.Object)
+     */
+    public static boolean defaultContainsPath(String path) {
+        return DEFAULTS.containsKey(path);
     }
 
-    public static boolean defaultContainsKey(WorldConfigPath wcp) {
-        return defaultContainsKey(wcp.path());
+    /**
+     * Returns <tt>true</tt> if there is a default default for the specified
+     * {@link WorldConfigPath}.
+     *
+     * @param wcp The {@link WorldConfigPath} whose presence in the
+     * {@link WorldGenConfig} defaults is to be tested
+     * @return <tt>true</tt> if this map contains a mapping for the specified
+     * path.
+     * @see #defaultContainsPath(java.lang.String)
+     */
+    public static boolean defaultContainsPath(WorldConfigPath wcp) {
+        return defaultContainsPath(wcp.path());
     }
 
-    public static Object putDefault(String key, Object value) {
-        return DEFAULTS.put(key, value);
+    /**
+     * Associates the specified value with the specified path as the default for
+     * {@link WorldGenConfig}s. If the map previously contained a default for
+     * the path, the old value is replaced by the specified value.
+     *
+     * @param path path with which the specified default is to be associated
+     * @param value default value to be associated with the specified path
+     * @return the previous default value associated with <tt>path</tt>
+     * @see Map#put(java.lang.Object, java.lang.Object)
+     */
+    public static Object putDefault(String path, Object value) {
+        return DEFAULTS.put(path, value);
     }
 
+    /**
+     * Associates the specified value with the specified {@link WorldConfigPath}
+     * as the default for {@link WorldGenConfig}s. If the map previously
+     * contained a default for the path, the old value is replaced by the
+     * specified value.
+     *
+     * @param wcp {@link WorldConfigPath} with which the specified default is to
+     * be associated
+     * @param value default value to be associated with the specified path
+     * @return the previous default value associated with
+     * {@link WorldConfigPath}
+     * @see Map#put(java.lang.Object, java.lang.Object)
+     */
     public static Object putDefault(WorldConfigPath wcp, Object value) {
         return putDefault(wcp.path(), value);
     }
 
+    /**
+     * Associates the specified {@link WorldConfigPath}'s default with the
+     * specified {@link WorldConfigPath} as the default for
+     * {@link WorldGenConfig}s. If the map previously contained a default for
+     * the path, the old value is replaced by the specified value.
+     *
+     * @param wcp {@link WorldConfigPath} with which the specified default is to
+     * be associated and obtained from
+     * @return the previous default value associated with
+     * {@link WorldConfigPath}
+     */
     public static Object putDefault(WorldConfigPath wcp) {
         return putDefault(wcp.path(), wcp.def());
     }
 
+    /**
+     * Copies all of the mappings from the specified map to the
+     * {@link WorldGenConfig} defaults.
+     *
+     * @param m mappings to be stored as defaults
+     * @see Map#putAll(java.util.Map)
+     */
     public static void putAllDefaults(Map<? extends String, ? extends Object> m) {
         DEFAULTS.putAll(m);
     }
 
-    public static Object removeDefault(String key) {
-        return DEFAULTS.remove(key);
+    /**
+     * Removes the default for a path if it is present
+     *
+     * @param path path whose default is to be removed from the defaults
+     * @return the previous value associated with <tt>path</tt>, or
+     * <tt>null</tt> if there was no default for <tt>path</tt>.
+     * @see Map#remove(java.lang.Object)
+     */
+    public static Object removeDefault(String path) {
+        return DEFAULTS.remove(path);
     }
 
+    /**
+     * Removes the default for a {@link WorldConfigPath} if it is present
+     *
+     * @param wcp {@link WorldConfigPath} whose default is to be removed from
+     * the defaults
+     * @return the previous value associated with <tt>wcp</tt>, or
+     * <tt>null</tt> if there was no default for <tt>wcp</tt>.
+     * @see #removeDefault(java.lang.String)
+     */
     public static Object removeDefault(WorldConfigPath wcp) {
         return DEFAULTS.remove(wcp.path());
     }
 
+    /**
+     * Removes all of the defaults from {@link WorldGenConfig}s
+     */
     public static void clearDefaults() {
         DEFAULTS.clear();
     }
 
+    /**
+     * Returns <tt>true</tt> if this map maps one or more paths to the specified
+     * value.
+     *
+     * @param value value whose presence as a default is to be tested
+     * @return <tt>true</tt> if this map maps one or more paths to the specified
+     * value.
+     */
     public static boolean containsDefaultValue(Object value) {
         return DEFAULTS.containsValue(value);
     }
 
+    /**
+     * Returns a clone of the Map representing the defaults
+     *
+     * @return a clone of the Map representing the defaults
+     */
     public static HashMap<String, Object> cloneDefaults() {
         return (HashMap<String, Object>) DEFAULTS.clone();
     }
 
-    public static Set<String> defaultKeySet() {
+    /**
+     * Returns a {@link Set} view of the paths which defaults are defined for.
+     *
+     * @return
+     */
+    public static Set<String> defaultPathSet() {
         return DEFAULTS.keySet();
     }
 
+    /**
+     * Returns a {@link Collection} view of the default values defined for
+     * {@link WorldGenConfig}.
+     *
+     * @return a {@link Collection} view of the default values defined for
+     * {@link WorldGenConfig}.
+     */
     public static Collection<Object> defaultValues() {
         return DEFAULTS.values();
     }
 
+    /**
+     * Returns a {@link Set} view of the mappings from path to default value
+     * defined for {@link WorldGenConfig}s.
+     *
+     * @return a {@link Set} view of the mappings from path to default value
+     * defined for {@link WorldGenConfig}s.
+     */
     public static Set<Map.Entry<String, Object>> defaultEntrySet() {
         return DEFAULTS.entrySet();
     }
